@@ -1,0 +1,18 @@
+#coding:utf-8
+import jieba
+import sys  
+reload(sys)  
+sys.setdefaultencoding('utf8')   
+
+if __name__=="__main__":
+
+    f=open("article_out.txt")
+    word=[]
+    for line in f.readlines():
+        word.append(line)
+    f=open("forum_word.txt","w")
+    for i in range(len(word)):
+        seg_list=jieba.cut(word[i],cut_all=False)
+        string = ' '.join(seg_list)
+        f.write('%s'%(string))
+    f.close()
