@@ -1,0 +1,10 @@
+#coding:utf-8
+
+import urllib.request
+
+proxy_handler=urllib.request.ProxyHandler({'http':'42.120.50.45:30317'})
+roxy_auth_handler = urllib.request.ProxyBasicAuthHandler()  
+proxy_auth_handler.add_password('realm', '40.120.50.45', 'user', 'password')  
+opener = urllib.request.build_opener(urllib.request.HTTPHandler, proxy_handler)  
+f = opener.open('http://www.baidu.com')   
+a = f.read() 

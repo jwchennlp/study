@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+
+import re
+import urllib
+import urllib.request
+
+
+def main():
+    die= {'d':'0', 'c':'1' ,'k':'2' ,'z':'3' ,'m':'4' ,'b':'5', 'w':'6', 'i':'7', 'r':'8', 'l':'9'}
+    url = "http://www.veryhuo.com/res/ip/"
+    headers = ('User-Agent','Mozilla/5.0 (Windows NT 5.1; rv:14.0) Gecko/20100101 Firefox/14.0.1')
+    opener = urllib.request.build_opener()
+    opener.addheaders = [headers]
+    data = opener.open(url).read()
+    data = data.decode('GBK')
+    ip_list = re.findall(re.compile(r'<td>(.*)<S'),data)
+    port_list = re.findall(re.compile(r'\"(\+.*?\+.)\)'),data)
+
+    f = open(r'ip.txt','w')
+    for x in range(len(ip_list)):
+        port_list[x] = port_list[x].replace('+', '')              
+        s = (ip_list[x] + ':' + port_list[x])
+        for key in die:
+            s = s.replace(key, die[key]) 
+        #print(s)
+    #print(len(ip_list))
+        f.write(s + '\n')
+    f.close()
+if __name__ == '__main__':
+    main()
